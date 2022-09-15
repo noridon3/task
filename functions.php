@@ -67,6 +67,32 @@ function insert_task($title)
     $stmt->execute();
 }
 
+// タスク完了
+function update_done_by_id($id)
+{
+    // データベースに接続
+    $dbh = connect_db();
+
+    // $id を使用してデータを更新
+    $sql = <<<EOM
+    UPDATE
+        tasks
+    SET
+        done = 1
+    WHERE
+        id = :id
+    EOM;
+
+    // プリペアドステートメントの準備
+    $stmt = $dbh->prepare($sql);
+
+    // パラメータのバインド
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+    // プリペアドステートメントの実行
+    $stmt->execute();
+}
+
 function find_task_by_done($status)
 {
     $dbh = connect_db();
@@ -95,3 +121,4 @@ function find_task_by_done($status)
     // 結果の取得
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+git add <div class=""></div>
